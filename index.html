@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arjuna - IT Portfolio</title>
+  <meta name="description" content="Portfolio Arjuna, mahasiswa IT yang fokus pada backend development, AI, system analysis, database design, dan web security." />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #ffffff;
+      --muted: #b7bdd6;
+      --primary: #7c3aed;
+      --secondary: #06b6d4;
+      --accent: #22c55e;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.35), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(6, 182, 212, 0.28), transparent 30%),
+        radial-gradient(circle at 50% 80%, rgba(34, 197, 94, 0.18), transparent 35%),
+        linear-gradient(135deg, #050816 0%, #080b20 45%, #020617 100%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: #050816;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 58px;
+      height: 58px;
+      border: 4px solid rgba(255,255,255,0.12);
+      border-top-color: var(--secondary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      margin: 16px auto 0;
+      width: min(1120px, 92%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: rgba(5, 8, 22, 0.65);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .music-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      color: white;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.06);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 42px;
+      padding: 80px 0 54px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 9vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 18px;
+      animation: fadeUp 0.9s ease both 0.1s;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, #8be9ff, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.85;
+      font-size: 16px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.9s ease both 0.2s;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      animation: fadeUp 0.9s ease both 0.3s;
+    }
+
+    .hero-buttons.center {
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.25s;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 16px 40px rgba(6, 182, 212, 0.22);
+    }
+
+    .btn.secondary {
+      background: var(--card);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .profile-card {
+      position: relative;
+      padding: 28px;
+      border-radius: 36px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      animation: floatCard 5s ease-in-out infinite, fadeUp 1s ease both 0.25s;
+    }
+
+    .profile-img-wrap {
+      width: 230px;
+      height: 230px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent));
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 7px solid #080b20;
+      background: #111827;
+    }
+
+    .profile-card h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .profile-card p {
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .socials a {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid var(--card-border);
+      transition: 0.25s;
+    }
+
+    .socials a:hover {
+      transform: translateY(-5px) scale(1.06);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    section {
+      padding: 74px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 14px;
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto 34px;
+      line-height: 1.8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .card i {
+      font-size: 28px;
+      color: var(--secondary);
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .skill-groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .skill-group {
+      padding: 22px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
+
+    .skill-group h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .skill-group h3 i {
+      color: var(--secondary);
+    }
+
+    .skill-group .skills {
+      justify-content: flex-start;
+    }
+
+    .skill {
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--card-border);
+      color: var(--muted);
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .skill:hover {
+      color: white;
+      transform: translateY(-4px);
+      border-color: rgba(6, 182, 212, 0.65);
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      text-decoration: none;
+      color: white;
+      transition: 0.25s;
+    }
+
+    .link-card:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(135deg, rgba(124,58,237,0.28), rgba(6,182,212,0.22));
+    }
+
+    .quote {
+      text-align: center;
+      max-width: 780px;
+      margin: auto;
+      padding: 34px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.22), rgba(6,182,212,0.16));
+      border: 1px solid var(--card-border);
+      color: white;
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .career-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .career-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    footer {
+      padding: 28px 0 42px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: 0.7s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @media (max-width: 860px) {
+      nav {
+        border-radius: 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 58px;
+      }
+
+      .hero p {
+        margin-inline: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-groups,
+      .career-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-img-wrap {
+        width: 190px;
+        height: 190px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Ganti src audio dengan file musik kamu, contoh: music.mp3 -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <nav>
+    <div class="logo">Arjuna Pramudya Renaldi<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="music-btn" id="musicToggle" title="Play Music">
+      <i class="fa-solid fa-music"></i>
+    </button>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <div class="badge"><i class="fa-solid fa-code"></i> IT Student | Backend | AI | Web Security</div>
+        <h1>Hi, I'm <span class="gradient-text">Arjuna</span></h1>
+        <p>
+          IT Student passionate about Backend Development, AI, System Analysis, Database Design, and Web Security. Focused on building modern, secure, and scalable digital solutions.
+        </p>
+        <div class="hero-buttons">
+          <a href="#skills" class="btn primary"><i class="fa-solid fa-layer-group"></i> Lihat Core Skills</a>
+          <a href="mailto:arjunaamerika@gmail.com" class="btn secondary"><i class="fa-solid fa-envelope"></i> Hubungi Saya</a>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-img-wrap">
+          <!-- Ganti profile.jpg dengan foto kamu -->
+          <img src="profile.jpg" alt="Foto Arjuna" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&amp;fit=crop&amp;w=500&amp;q=80'" />
+        </div>
+        <h2>Arjuna</h2>
+        <p>Exploring AI, building systems, and solving problems through technology.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/arjuna_de.prince?igsh=MTNzMjFucThwZWNlaQ==" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@sir.arjuna.the.prince?_r=1&amp;_t=ZS-96KqPNaITEi" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://wa.me/qr/F77TV5EWYGKXI1" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="mailto:arjunaamerika@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="section-desc">
+        Saya adalah seorang mahasiswa IT yang memiliki minat kuat pada pengembangan sistem, backend development, database design, keamanan aplikasi web, serta teknologi Artificial Intelligence (AI). Saya terbiasa menggunakan AI dalam proses belajar, pengembangan ide, analisis sistem, riset, dan peningkatan produktivitas. Saya juga memiliki kemampuan dalam analisis sistem, perancangan database, keamanan dasar aplikasi web, dokumentasi, dan penelitian teknis.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <i class="fa-solid fa-brain"></i>
+          <h3>AI-Assisted Workflow</h3>
+          <p>Menggunakan AI untuk riset, pembelajaran, analisis ide, dokumentasi, dan peningkatan produktivitas teknis.</p>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-diagram-project"></i>
+          <h3>System &amp; Database Design</h3>
+          <p>Mampu menganalisis kebutuhan sistem, merancang alur proses, membuat ERD, dan menyusun struktur data yang rapi.</p>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3>Secure Web Development</h3>
+          <p>Berfokus pada pengembangan backend, autentikasi, authorization, dan kesadaran keamanan dasar aplikasi web.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <h2 class="section-title">Core Skills</h2>
+      <p class="section-desc">Kemampuan utama yang sedang saya kembangkan untuk membangun sistem digital yang modern, aman, dan terstruktur.</p>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h3><i class="fa-solid fa-robot"></i> Artificial Intelligence &amp; Technology</h3>
+          <div class="skills">
+            <span class="skill">AI-assisted Workflow</span>
+            <span class="skill">Prompt Engineering Basics</span>
+            <span class="skill">AI for Research &amp; Learning</span>
+            <span class="skill">Technology Adaptation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fa-solid fa-server"></i> Backend Web Development</h3>
+          <div class="skills">
+            <span class="skill">Laravel &amp; PHP MVC</span>
+            <span class="skill">CRUD System Development</span>
+            <span class="skill">Authentication &amp; Authorization</span>
+            <span class="skill">Middleware, Routing &amp; Database Integration</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fa-solid fa-diagram-project"></i> System Analysis &amp; Database</h3>
+          <div class="skills">
+            <span class="skill">System Analysis &amp; Design Thinking</span>
+            <span class="skill">Workflow &amp; Business Process Analysis</span>
+            <span class="skill">RBAC Planning</span>
+            <span class="skill">ERD, MySQL &amp; Data Structuring</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fa-solid fa-shield-halved"></i> Security, Research &amp; Communication</h3>
+          <div class="skills">
+            <span class="skill">OWASP, SQL Injection &amp; XSS Awareness</span>
+            <span class="skill">Authentication Security &amp; Data Integrity</span>
+            <span class="skill">Basic Security Testing</span>
+            <span class="skill">Technical Documentation &amp; System Evaluation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="career" class="reveal">
+      <h2 class="section-title">Strengths &amp; Career Interests</h2>
+      <p class="section-desc">
+        Saya senang mempelajari teknologi baru dan menghubungkan berbagai konsep menjadi solusi sistem yang terstruktur, efisien, dan modern.
+      </p>
+      <div class="career-grid">
+        <div class="card">
+          <i class="fa-solid fa-user-check"></i>
+          <h3>Personal Strengths</h3>
+          <p>Karakter belajar dan cara berpikir yang saya kembangkan dalam proses akademik maupun teknis.</p>
+          <div class="career-list">
+            <span class="skill">Fast Learner</span>
+            <span class="skill">Self-Directed Learning</span>
+            <span class="skill">Adaptive Thinking</span>
+            <span class="skill">Analytical Mindset</span>
+            <span class="skill">Continuous Improvement</span>
+          </div>
+        </div>
+        <div class="card">
+          <i class="fa-solid fa-briefcase"></i>
+          <h3>Career Interests</h3>
+          <p>Arah karier yang ingin saya tekuni dalam pengembangan software, sistem, AI, dan keamanan aplikasi web.</p>
+          <div class="career-list">
+            <span class="skill">Backend Developer</span>
+            <span class="skill">Fullstack Developer</span>
+            <span class="skill">Software Engineer</span>
+            <span class="skill">System Analyst</span>
+            <span class="skill">AI Enthusiast</span>
+            <span class="skill">Security-Oriented Web Developer</span>
+            <span class="skill">IT Research &amp; Development</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="links" class="reveal">
+      <h2 class="section-title">My Links</h2>
+      <p class="section-desc">Semua link penting saya ada di sini.</p>
+      <div class="links-grid">
+        <a href="https://www.instagram.com/arjuna_de.prince?igsh=MTNzMjFucThwZWNlaQ==" class="link-card" target="_blank" rel="noopener noreferrer">
+          <span><i class="fa-brands fa-instagram"></i> Instagram</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <a href="https://www.tiktok.com/@sir.arjuna.the.prince?_r=1&amp;_t=ZS-96KqPNaITEi" class="link-card" target="_blank" rel="noopener noreferrer">
+          <span><i class="fa-brands fa-tiktok"></i> TikTok</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <a href="https://wa.me/qr/F77TV5EWYGKXI1" class="link-card" target="_blank" rel="noopener noreferrer">
+          <span><i class="fa-brands fa-whatsapp"></i> WhatsApp</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <a href="mailto:arjunaamerika@gmail.com" class="link-card">
+          <span><i class="fa-solid fa-envelope"></i> Email</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="quote">
+        Exploring AI, building systems, and solving problems through technology
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-desc">
+        Terbuka untuk koneksi, kolaborasi, diskusi teknologi, riset, atau peluang pengembangan sistem.
+      </p>
+      <div class="hero-buttons center">
+        <a href="mailto:arjunaamerika@gmail.com" class="btn primary"><i class="fa-solid fa-paper-plane"></i> Send Email</a>
+        <a href="https://wa.me/qr/F77TV5EWYGKXI1" target="_blank" rel="noopener noreferrer" class="btn secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Arjuna. All rights reserved.
+  </footer>
+
+  <script>
+    const loader = document.getElementById('loader');
+    window.addEventListener('load', () => {
+      setTimeout(() => loader.classList.add('hide'), 700);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      reveals.forEach((el) => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 90) {
+          el.classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    const music = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    let isPlaying = false;
+
+    musicToggle.addEventListener('click', async () => {
+      try {
+        if (!isPlaying) {
+          await music.play();
+          isPlaying = true;
+          musicToggle.innerHTML = '<i class="fa-solid fa-pause"></i>';
+          musicToggle.title = 'Pause Music';
+        } else {
+          music.pause();
+          isPlaying = false;
+          musicToggle.innerHTML = '<i class="fa-solid fa-music"></i>';
+          musicToggle.title = 'Play Music';
+        }
+      } catch (error) {
+        alert('Browser memblokir autoplay. Klik lagi tombol musik setelah halaman aktif.');
+      }
+    });
+  </script>
+</body>
+</html>
